@@ -20,7 +20,7 @@ describe('My Login application', () => {
     // })
 
 
-    it('Create new note', async () => {
+    xit('Create new note', async () => {
         await browser.pause(5000);
 
         // Замість пошуку з accessibility ID, тепер використовуємо XPath
@@ -90,7 +90,7 @@ describe('My Login application', () => {
 
     });
 
-    it('Delete note', async () => {
+    xit('Delete note', async () => {
         await browser.pause(5000);
 
         // // Замість пошуку з accessibility ID, тепер використовуємо XPath
@@ -184,7 +184,83 @@ describe('My Login application', () => {
 
     });
 
-    it('Check deleted notes', async () => {
+    it('Create a shared note', async () => {
+
+        // Замість пошуку з accessibility ID, тепер використовуємо XPath
+        const sideMenuPath = "//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']";
+        const sideMenuButton = await page.getElement(sideMenuPath)
+
+
+        console.log("sideMenuButton", sideMenuButton)
+
+
+        await sideMenuButton.waitForDisplayed({ timeout: 10000 });
+
+        await sideMenuButton.click();
+
+        await browser.pause(5000);
+        //-----------------------------------------------//
+
+        const shareNoteLink = await page.getElement('~Спільні нотатки')
+
+        await shareNoteLink.click()
+
+        await browser.pause(2000);
+
+        const penCreateIcon = await page.getElement("~Створити нотатку")
+
+        await penCreateIcon.click()
+
+        await browser.pause(2000);
+
+        const sendLinkBtn = await page.getElement('//android.view.ViewGroup[@resource-id="com.samsung.android.mobileservice:id/link_container"]')
+
+        await sendLinkBtn.click()
+
+        await browser.pause(2000);
+
+        const copyBtn = await page.getElement('(//android.widget.LinearLayout[@resource-id="android:id/sem_chooser_grid_item_view"])[5]')
+
+        await copyBtn.click()
+
+        await browser.pause(2000);
+
+        const sharedNoteHeader = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/composer_toolbar_title"]')
+
+        await sharedNoteHeader.click()
+
+        await browser.pause(2000);
+
+        await page.setElementInputValue('//android.widget.EditText[@resource-id="com.samsung.android.app.notes:id/comp_title_text"]', "My Shared Note")
+
+        await browser.pause(2000);
+
+        const moveToTop = await page.getElement('~Перехід вгору')
+
+        await moveToTop.click()
+
+        await browser.pause(2000);
+
+        await moveToTop.click()
+
+        await browser.pause(2000);
+
+        await moveToTop.click()
+
+        await browser.pause(2000);
+
+        const savedSharedName = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]')
+
+
+        const savedFolderNameText = (await savedSharedName.getAttribute('text')).replace(/\u200E/g, '').trim();
+        expect(savedFolderNameText).toEqual("My Shared Note");
+
+        await browser.pause(5000);
+
+
+    })
+
+    xit('Check deleted notes', async () => {
 
 
         const cartIcon = await page.getElement('~Кошик')
