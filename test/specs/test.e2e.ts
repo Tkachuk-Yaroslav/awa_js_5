@@ -19,24 +19,20 @@ describe('My Login application', () => {
 
     // })
 
-    it('повинно перевірити видимість та натиснути на елемент з accessibility id', async () => {
+
+    it('Create new note', async () => {
         await browser.pause(5000);
 
         // Замість пошуку з accessibility ID, тепер використовуємо XPath
         const sideMenuPath = "//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']";
         const sideMenuButton = await page.getElement(sideMenuPath)
 
-        // const sideMenuButton = await $("//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']");
 
         console.log("sideMenuButton", sideMenuButton)
 
-        // Явне очікування
+
         await sideMenuButton.waitForDisplayed({ timeout: 10000 });
 
-        // Перевірка видимості кнопки
-        // expect(await sideMenuButton.isDisplayed()).to.be.true;
-
-        // Клік на кнопку
         await sideMenuButton.click();
 
         await browser.pause(5000);
@@ -58,18 +54,13 @@ describe('My Login application', () => {
         await doneSettingPageBtn.click()
 
         await browser.pause(2000);
-        // const textarea = await page.getElement('//android.view.ViewGroup[@resource-id="com.samsung.android.app.notes:id/zoom_lock_tip"]')
-
-        // await textarea.click()
         const nameNote = await page.getElement('//android.widget.FrameLayout[@resource-id="com.samsung.android.app.notes:id/appbar_layout"]')
 
         await nameNote.click()
         await browser.pause(2000);
 
-        // await page.setElementInputValue('//android.view.ViewGroup[@resource-id="com.samsung.android.app.notes:id/zoom_lock_tip"]', "qweqweqwe")
 
         await page.setElementInputValue('//android.widget.EditText[@resource-id="com.samsung.android.app.notes:id/comp_title_text"]', "qweqwe")
-        // await page.setElementInputValue('//android.widget.EditText[@resource-id="com.samsung.android.app.notes:id/comp_title_text"]', "‎qweqwe")
 
 
         await browser.pause(2000);
@@ -77,14 +68,6 @@ describe('My Login application', () => {
         const moveToTop = await page.getElement('~Перехід вгору')
 
         await moveToTop.click()
-
-        // // const backBtn = await page.getElement('//android.widget.ImageButton[@content-desc="Перехід вгору"]')
-        // // await backBtn.click()
-        // // await browser.pause(2000);
-
-        // // await backBtn.click()
-        // // await browser.pause(2000);
-
 
         await browser.pause(2000);
 
@@ -98,11 +81,122 @@ describe('My Login application', () => {
 
         const savedFolderName = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]')
 
-        // const savedFolderNameText = (await savedFolderName.getAttribute('text')).trim();
 
         const savedFolderNameText = (await savedFolderName.getAttribute('text')).replace(/\u200E/g, '').trim();
         expect(savedFolderNameText).toEqual('qweqwe');
 
+        await browser.pause(5000);
+
+
+    });
+
+    it('Delete note', async () => {
+        await browser.pause(5000);
+
+        // // Замість пошуку з accessibility ID, тепер використовуємо XPath
+        // const sideMenuPath = "//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']";
+        // const sideMenuButton = await page.getElement(sideMenuPath)
+
+
+        // console.log("sideMenuButton", sideMenuButton)
+
+
+        // await sideMenuButton.waitForDisplayed({ timeout: 10000 });
+
+        // await sideMenuButton.click();
+
+        // await browser.pause(5000);
+
+        const penCreateIcon = await page.getElement("~Створити нотатку")
+
+        await penCreateIcon.click()
+
+        // await browser.pause(2000);
+
+        // const continueStylePageBtn = await page.getElement('//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]')
+
+        // await continueStylePageBtn.click()
+
+        // await browser.pause(2000);
+
+        // const doneSettingPageBtn = await page.getElement('//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]')
+
+        // await doneSettingPageBtn.click()
+
+        await browser.pause(2000);
+        const nameNote = await page.getElement('//android.widget.FrameLayout[@resource-id="com.samsung.android.app.notes:id/appbar_layout"]')
+
+        await nameNote.click()
+        await browser.pause(2000);
+
+
+        await page.setElementInputValue('//android.widget.EditText[@resource-id="com.samsung.android.app.notes:id/comp_title_text"]', "qweqwe12")
+
+
+        await browser.pause(2000);
+
+        const moveToTop = await page.getElement('~Перехід вгору')
+
+        await moveToTop.click()
+
+        await browser.pause(2000);
+
+        await moveToTop.click()
+
+        await browser.pause(2000);
+
+        await moveToTop.click()
+
+        await browser.pause(2000);
+
+        const savedFolderName = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]')
+
+
+        const savedFolderNameText = (await savedFolderName.getAttribute('text')).replace(/\u200E/g, '').trim();
+        expect(savedFolderNameText).toEqual('qweqwe12');
+
+        await savedFolderName.click()
+
+        await browser.pause(5000);
+
+        const otherOptionsBtn = await page.getElement('~Інші опції')
+
+        await otherOptionsBtn.click()
+
+        await browser.pause(2000);
+
+        const deleteIcon = await page.getElement('(//android.widget.ImageView[@resource-id="com.samsung.android.app.notes:id/item_button"])[6]')
+
+        await deleteIcon.click()
+
+        await browser.pause(2000);
+
+        const delCartLink = await page.getElement('//android.widget.Button[@resource-id="android:id/button1"]')
+
+        await delCartLink.click()
+
+        await browser.pause(2000);
+
+        await page.isElementDisplayed('//android.widget.TextView[@text="Усі нотатки"]')
+
+        await browser.pause(2000);
+
+
+    });
+
+    it('Check deleted notes', async () => {
+
+
+        const cartIcon = await page.getElement('~Кошик')
+
+        await cartIcon.click()
+
+        await browser.pause(2000);
+
+        const countOfDeletedNotes = await page.getElement('//android.widget.TextView[@text="1 нотатка"]')
+
+        const countOfDeletedNotesText = (await countOfDeletedNotes.getAttribute('text')).trim();
+        expect(countOfDeletedNotesText).toEqual('1 нотатка');
     });
 
 
