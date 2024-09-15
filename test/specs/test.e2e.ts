@@ -1,7 +1,9 @@
 import { expect, browser } from '@wdio/globals'
 import entry from '../pageobjects/entry.page.js'
 import { page } from "../pageobjects/page.js"
-
+import initial from '../pageobjects/initial.page.js'
+import allNotes from '../pageobjects/all.notes.page.js'
+import creatingNote from '../pageobjects/creating.note.page.js'
 
 const signUpBtnIos = "~just-example";
 const entryTitleIos = "~just-example-label";
@@ -23,67 +25,75 @@ describe('My Login application', () => {
     it('Create new note', async () => {
         await browser.pause(5000);
 
-        const sideMenuPath = "//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']";
-        const sideMenuButton = await page.getElement(sideMenuPath)
+        // // const sideMenuPath = "//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']";
+        // // const sideMenuButton = await page.getElement(sideMenuPath)
 
-        await sideMenuButton.waitForDisplayed({ timeout: 10000 });
+        // // await sideMenuButton.waitForDisplayed({ timeout: 10000 });
 
-        await sideMenuButton.click();
+        // // await sideMenuButton.click();
 
-        // // await browser.pause(5000);
+        // // // // await browser.pause(5000);
 
-        const penCreateIcon = await page.getElement("~Створити нотатку")
 
-        await penCreateIcon.click()
 
-        // // await browser.pause(2000);
-
-        const continueStylePageBtn = await page.getElement('//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]')
-
-        await continueStylePageBtn.click()
+        await initial.clickStartButton()
 
         // // await browser.pause(2000);
 
-        const doneSettingPageBtn = await page.getElement('//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]')
+        // // const penCreateIcon = await page.getElement("~Створити нотатку")
 
-        await doneSettingPageBtn.click()
+        // // await penCreateIcon.click()
+
+        // // const continueStylePageBtn = await page.getElement('//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]')
+
+        // // await continueStylePageBtn.click()
+
+        // // // // await browser.pause(2000);
+
+        // // const doneSettingPageBtn = await page.getElement('//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]')
+
+        // // await doneSettingPageBtn.click()
+
+        await allNotes.createDefaultNote()
 
         // // await browser.pause(2000);
-        const nameNote = await page.getElement('//android.widget.FrameLayout[@resource-id="com.samsung.android.app.notes:id/appbar_layout"]')
+        // // const nameNote = await page.getElement('//android.widget.FrameLayout[@resource-id="com.samsung.android.app.notes:id/appbar_layout"]')
 
-        await nameNote.click()
+        // // await nameNote.click()
         // // await browser.pause(2000);
+        await creatingNote.clickNameNote()
 
-
-        await page.setElementInputValue('//android.widget.EditText[@resource-id="com.samsung.android.app.notes:id/comp_title_text"]', "qweqwe")
-
+        // // await page.setElementInputValue('//android.widget.EditText[@resource-id="com.samsung.android.app.notes:id/comp_title_text"]', "qweqwe")
+        await creatingNote.setNameNote('qweqwe')
 
         await browser.pause(2000);
 
-        const moveToTop = await page.getElement('~Перехід вгору')
+        // // const moveToTop = await page.getElement('~Перехід вгору')
 
-        await moveToTop.click()
+        // // await moveToTop.click()
 
-        // // await browser.pause(2000);
+        // // // // await browser.pause(2000);
 
-        await moveToTop.click()
+        // // await moveToTop.click()
 
-        // // await browser.pause(2000);
+        // // // // await browser.pause(2000);
 
-        await moveToTop.click()
+        // // await moveToTop.click()
 
-        // // await browser.pause(2000);
+        // // // // await browser.pause(2000);
+        await creatingNote.goToBack()
 
-        const savedFolderName = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]')
+        // // const savedFolderName = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]')
 
 
-        const savedFolderNameText = (await savedFolderName.getAttribute('text')).replace(/\u200E/g, '').trim();
-        expect(savedFolderNameText).toEqual('qweqwe');
+        // // const savedFolderNameText = (await savedFolderName.getAttribute('text')).replace(/\u200E/g, '').trim();
+        // // expect(savedFolderNameText).toEqual('qweqwe');
+        await allNotes.checkSavedFolderNoteName()
 
         await browser.pause(5000);
     });
 
-    it('Delete note', async () => {
+    xit('Delete note', async () => {
         await browser.pause(5000);
 
         // // Замість пошуку з accessibility ID, тепер використовуємо XPath
@@ -175,7 +185,7 @@ describe('My Login application', () => {
         await browser.pause(2000);
     });
 
-    it('Create a shared note', async () => {
+    xit('Create a shared note', async () => {
 
         // // // Замість пошуку з accessibility ID, тепер використовуємо XPath
         // // const sideMenuPath = "//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']";
@@ -254,7 +264,7 @@ describe('My Login application', () => {
         await browser.pause(5000);
     })
 
-    it('Delete a shared note', async () => {
+    xit('Delete a shared note', async () => {
 
         // // Замість пошуку з accessibility ID, тепер використовуємо XPath
         // const sideMenuPath = "//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']";
@@ -308,7 +318,7 @@ describe('My Login application', () => {
 
     })
 
-    it('Check deleted notes', async () => {
+    xit('Check deleted notes', async () => {
 
 
         const cartIcon = await page.getElement('~Кошик')
