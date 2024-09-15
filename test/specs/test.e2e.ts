@@ -93,7 +93,7 @@ describe('My Login application', () => {
         await browser.pause(5000);
     });
 
-    xit('Delete note', async () => {
+    it('Delete note', async () => {
         await browser.pause(5000);
 
         // // Замість пошуку з accessibility ID, тепер використовуємо XPath
@@ -110,9 +110,10 @@ describe('My Login application', () => {
 
         // await browser.pause(5000);
 
-        const penCreateIcon = await page.getElement("~Створити нотатку")
+        // // const penCreateIcon = await page.getElement("~Створити нотатку")
 
-        await penCreateIcon.click()
+        // // await penCreateIcon.click()
+        await allNotes.clickPenCreateIcon()
 
         // await browser.pause(2000);
 
@@ -127,30 +128,34 @@ describe('My Login application', () => {
         // await doneSettingPageBtn.click()
 
         // // await browser.pause(2000);
-        const nameNote = await page.getElement('//android.widget.FrameLayout[@resource-id="com.samsung.android.app.notes:id/appbar_layout"]')
+        // // const nameNote = await page.getElement('//android.widget.FrameLayout[@resource-id="com.samsung.android.app.notes:id/appbar_layout"]')
 
-        await nameNote.click()
+        // // await nameNote.click()
         // // await browser.pause(2000);
+        await creatingNote.clickNameNote()
 
-
-        await page.setElementInputValue('//android.widget.EditText[@resource-id="com.samsung.android.app.notes:id/comp_title_text"]', "qweqwe12")
-
-
-        // // await browser.pause(2000);
-
-        const moveToTop = await page.getElement('~Перехід вгору')
-
-        await moveToTop.click()
+        // await page.setElementInputValue('//android.widget.EditText[@resource-id="com.samsung.android.app.notes:id/comp_title_text"]', "qweqwe12")
+        await creatingNote.setNameNote('qweqwe12')
 
         // // await browser.pause(2000);
 
-        await moveToTop.click()
+        // // const moveToTop = await page.getElement('~Перехід вгору')
 
-        // // await browser.pause(2000);
+        // // await moveToTop.click()
 
-        await moveToTop.click()
+        // // // // await browser.pause(2000);
 
-        // // await browser.pause(2000);
+        // // await moveToTop.click()
+
+        // // // // await browser.pause(2000);
+
+        // // await moveToTop.click()
+
+        // // // // await browser.pause(2000);
+        await creatingNote.goToBack()
+        /*
+        ДОПИЛЯТИ ФУНКЦІЮ ТАК, ЩОБ ВОНА ПРИЙМАЛА ПАРАМЕТР EXPECTED_VALUE І ПОТІМ ЙОГО ПІДСТАВЛЯЛА(ДЛЯ НАСТУПНОЇ СТРОЧКИ У ЦЬОМУ ФАЙЛІ)
+         */
 
         const savedFolderName = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]')
 
