@@ -7,6 +7,7 @@ import creatingNote from '../pageobjects/creating.note.page.js'
 import creatingSharedNote from '../pageobjects/creating.shared.note.page.js'
 import navBar from '../pageobjects/nav.bar.page.js'
 import sharedNotes from '../pageobjects/shared.notes.page.js'
+import cart from '../pageobjects/cart.page.js'
 
 // const signUpBtnIos = "~just-example";
 // const entryTitleIos = "~just-example-label";
@@ -341,16 +342,20 @@ describe('My Login application', () => {
     it('Check deleted notes', async () => {
 
 
-        const cartIcon = await page.getElement('~Кошик')
+        // // const cartIcon = await page.getElement('~Кошик')
 
-        await cartIcon.click()
+        // // await cartIcon.click()
+
+        await navBar.clickCartIcon()
 
         // // await browser.pause(2000);
 
-        const countOfDeletedNotes = await page.getElement('//android.widget.TextView[@text="1 нотатка"]')
+        // // const countOfDeletedNotes = await page.getElement('//android.widget.TextView[@text="1 нотатка"]')
 
-        const countOfDeletedNotesText = (await countOfDeletedNotes.getAttribute('text')).trim();
-        expect(countOfDeletedNotesText).toEqual('1 нотатка');
+        // // const countOfDeletedNotesText = (await countOfDeletedNotes.getAttribute('text')).trim();
+        // // expect(countOfDeletedNotesText).toEqual('1 нотатка');
+
+        await cart.checkCountOfDeletedNotesText('1 нотатка')
 
         await browser.pause(2000);
     });
