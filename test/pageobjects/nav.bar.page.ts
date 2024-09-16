@@ -1,4 +1,3 @@
-import { browser, expect } from '@wdio/globals'
 import Page from './page.js';
 
 const shareNoteLink = '~Спільні нотатки'

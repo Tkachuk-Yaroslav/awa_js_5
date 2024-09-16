@@ -1,4 +1,4 @@
-import { browser, expect } from '@wdio/globals'
+import { expect } from '@wdio/globals'
 import Page from './page.js';
 
 const countOfDeletedNotes = '//android.widget.TextView[@text="1 нотатка"]'

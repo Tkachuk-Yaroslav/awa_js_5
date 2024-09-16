@@ -1,15 +1,11 @@
-import { browser, expect } from '@wdio/globals'
+import { expect } from '@wdio/globals'
 import Page from './page.js';
 
 const penCreateIcon = "~Створити нотатку"
 const continueStylePageBtn = '//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]'
 const doneSettingPageBtn = '//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]'
 const pageTitle = '//android.widget.TextView[@text="Усі нотатки"]'
-
 const savedFolderName = '//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]'
-
-
-
 
 
 class AllNotes extends Page {
@@ -25,7 +21,6 @@ class AllNotes extends Page {
         await this.clickElement(doneSettingPageBtn)
     }
 
-    // Метод для створення нотатки з дефолтними налаштуваннями
     public async createDefaultNote(): Promise<void> {
         await this.clickPenCreateIcon();
         await this.clickContinueStylePageBtn();
@@ -46,7 +41,6 @@ class AllNotes extends Page {
         expect(savedFolderNameText).toEqual(expectedValue);
     }
 
-    //спробувати для 2 тест кесу
     public async clickSavedFolderName(): Promise<void> {
         await this.clickElement(savedFolderName)
     }
