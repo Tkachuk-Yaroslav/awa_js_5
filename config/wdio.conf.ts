@@ -1,7 +1,28 @@
+import allureReporter from '@wdio/allure-reporter'
 import { browser } from '@wdio/globals'
 import dotenv from "dotenv";
 dotenv.config(); // Load environment variables from .env file
 export const config = {
+    onComplete: function (): Promise<void> {
+        const reportError = new Error('Could not generate Allure report')
+        const generation = allure(['generate', 'allure-results', '--clean'])
+        return new Promise((resolve, reject) => {
+            const generationTimeout = setTimeout(
+                () => reject(reportError),
+                5000)
+
+            generation.on('exit', function (exitCode) {
+                clearTimeout(generationTimeout)
+
+                if (exitCode !== 0) {
+                    return reject(reportError)
+                }
+
+                console.log('Allure report successfully generated')
+                resolve()
+            })
+        })
+    },
     //
     // ====================
     // Runner Configuration
@@ -15,7 +36,7 @@ export const config = {
             transpileOnly: true
         }
     },
-    
+
     //
     // =================
     // Service Providers
@@ -29,7 +50,7 @@ export const config = {
     // in via the `region` property. Available short handles for regions are `us` (default), `eu` and `apac`.
     // These regions are used for the Sauce Labs VM cloud and the Sauce Labs Real Device Cloud.
     // If you don't provide the region it will default for the `us`
-    
+
     //
     // ==================
     // Specify Test Files
@@ -145,17 +166,22 @@ export const config = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: [
-    "spec", // https://webdriver.io/docs/spec-reporter.html
-    [
-      "junit",
-      {
-        outputDir: "./reporters/junit-results", // https://webdriver.io/docs/junit-reporter.html
-      },
-    ],
+        "spec", // https://webdriver.io/docs/spec-reporter.html
+        [
+            "junit",
+            {
+                outputDir: "./reporters/junit-results", // https://webdriver.io/docs/junit-reporter.html
+            },
+        ],
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: true,
+        }]
         // ['allure', {outputDir: './reporters/allure-results'}]
     ],
 
-    
+
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -257,7 +283,7 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed) {
             await browser.takeScreenshot();
         }

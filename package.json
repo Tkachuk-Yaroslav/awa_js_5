@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@wdio/spec-reporter": "^8.15.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "@wdio/allure-reporter": "^7.0.0"
   }
 }
