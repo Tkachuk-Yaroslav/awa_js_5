@@ -4,7 +4,7 @@ import Page from './page.js';
 const penCreateIcon = "~Створити нотатку"
 const continueStylePageBtn = '//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]'
 const doneSettingPageBtn = '//android.widget.Button[@resource-id="com.samsung.android.app.notes:id/pager_next_button"]'
-
+const pageTitle = '//android.widget.TextView[@text="Усі нотатки"]'
 
 const savedFolderName = '//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]'
 
@@ -37,6 +37,22 @@ class AllNotes extends Page {
 
         const savedFolderNameText = (await elem.getAttribute('text')).replace(/\u200E/g, '').trim();
         expect(savedFolderNameText).toEqual('qweqwe');
+    }
+
+    public async checkSavedFolderNoteName2(expectedValue: string): Promise<void> {
+        const elem = await this.getElement(savedFolderName)
+
+        const savedFolderNameText = (await elem.getAttribute('text')).replace(/\u200E/g, '').trim();
+        expect(savedFolderNameText).toEqual(expectedValue);
+    }
+
+    //спробувати для 2 тест кесу
+    public async clickSavedFolderName(): Promise<void> {
+        await this.clickElement(savedFolderName)
+    }
+
+    public async isTitlePageDisplayed(): Promise<void> {
+        await this.isElementDisplayed(pageTitle)
     }
 }
 

@@ -157,35 +157,40 @@ describe('My Login application', () => {
         ДОПИЛЯТИ ФУНКЦІЮ ТАК, ЩОБ ВОНА ПРИЙМАЛА ПАРАМЕТР EXPECTED_VALUE І ПОТІМ ЙОГО ПІДСТАВЛЯЛА(ДЛЯ НАСТУПНОЇ СТРОЧКИ У ЦЬОМУ ФАЙЛІ)
          */
 
-        const savedFolderName = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]')
+        // const savedFolderName = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]')
 
 
-        const savedFolderNameText = (await savedFolderName.getAttribute('text')).replace(/\u200E/g, '').trim();
-        expect(savedFolderNameText).toEqual('qweqwe12');
+        // const savedFolderNameText = (await savedFolderName.getAttribute('text')).replace(/\u200E/g, '').trim();
+        // expect(savedFolderNameText).toEqual('qweqwe12');
+        await allNotes.checkSavedFolderNoteName2('qweqwe12')
 
-        await savedFolderName.click()
+        // await savedFolderName.click()
+        await allNotes.clickSavedFolderName()
 
         // // await browser.pause(5000);
 
-        const otherOptionsBtn = await page.getElement('~Інші опції')
+        // const otherOptionsBtn = await page.getElement('~Інші опції')
 
-        await otherOptionsBtn.click()
+        // await otherOptionsBtn.click()
+
+        // // // await browser.pause(2000);
+
+        // const deleteIcon = await page.getElement('(//android.widget.ImageView[@resource-id="com.samsung.android.app.notes:id/item_button"])[6]')
+
+        // await deleteIcon.click()
+
+        // // // await browser.pause(2000);
+
+        // const delCartLink = await page.getElement('//android.widget.Button[@resource-id="android:id/button1"]')
+
+        // await delCartLink.click()
 
         // // await browser.pause(2000);
+        await creatingNote.deleteNote()
 
-        const deleteIcon = await page.getElement('(//android.widget.ImageView[@resource-id="com.samsung.android.app.notes:id/item_button"])[6]')
+        // await page.isElementDisplayed('//android.widget.TextView[@text="Усі нотатки"]')
 
-        await deleteIcon.click()
-
-        // // await browser.pause(2000);
-
-        const delCartLink = await page.getElement('//android.widget.Button[@resource-id="android:id/button1"]')
-
-        await delCartLink.click()
-
-        // // await browser.pause(2000);
-
-        await page.isElementDisplayed('//android.widget.TextView[@text="Усі нотатки"]')
+        await allNotes.isTitlePageDisplayed()
 
         await browser.pause(2000);
     });
