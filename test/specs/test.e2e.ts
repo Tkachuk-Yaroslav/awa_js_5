@@ -13,17 +13,6 @@ import sharedNotes from '../pageobjects/shared.notes.page.js'
 
 
 describe('My Login application', () => {
-    // it('should sign up with valid credentials', async () => {
-    //     await browser.pause(5000)
-    //     expect(await entry.isEntryTitleDisplayed(entryTitleIos)).true;
-    //     expect(await entry.isSignUpButtonDisplayed(signUpBtnIos)).true;
-    //     // expect(await entry.getSignUpButtonText(signUpBtnIos)).toEqual("Sign up"); // element has no text
-    //     await entry.clickSignUpButton(signUpBtnIos);
-    //     await browser.pause(5000)
-
-
-    // })
-
 
     it('Create new note', async () => {
         await browser.pause(5000);
@@ -96,7 +85,7 @@ describe('My Login application', () => {
         await browser.pause(5000);
     });
 
-    xit('Delete note', async () => {
+    it('Delete note', async () => {
         await browser.pause(5000);
 
         // // Замість пошуку з accessibility ID, тепер використовуємо XPath
@@ -290,7 +279,7 @@ describe('My Login application', () => {
         await browser.pause(5000);
     })
 
-    xit('Delete a shared note', async () => {
+    it('Delete a shared note', async () => {
 
         // // Замість пошуку з accessibility ID, тепер використовуємо XPath
         // const sideMenuPath = "//android.widget.Button[@resource-id='com.samsung.android.app.notes:id/sign_in_button']";
@@ -314,37 +303,42 @@ describe('My Login application', () => {
         // await browser.pause(2000);
         // //-----------------------------------------------//
 
-        const noteForDeleteLink = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title" and @text="‎My Shared Note"]')
+        // // const noteForDeleteLink = await page.getElement('//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title" and @text="‎My Shared Note"]')
 
-        await noteForDeleteLink.click()
+        // // await noteForDeleteLink.click()
+
+        await sharedNotes.clickNoteForDeleteLink()
 
         // // await browser.pause(2000)
 
-        const otherOptionsBtn = await page.getElement('~Інші опції')
+        // // const otherOptionsBtn = await page.getElement('~Інші опції')
 
-        await otherOptionsBtn.click()
+        // // await otherOptionsBtn.click()
+
+        // // // // await browser.pause(2000);
+
+        // // const delIcon = await page.getElement('(//android.widget.ImageView[@resource-id="com.samsung.android.app.notes:id/item_button"])[3]')
+
+        // // await delIcon.click()
+
+        // // // // await browser.pause(2000);
+
+        // // const delCartLink = await page.getElement('//android.widget.Button[@resource-id="android:id/button1"]')
+
+        // // await delCartLink.click()
+
+        await creatingSharedNote.deleteSharedNote()
 
         // // await browser.pause(2000);
 
-        const delIcon = await page.getElement('(//android.widget.ImageView[@resource-id="com.samsung.android.app.notes:id/item_button"])[3]')
+        // // await page.isElementDisplayed('//android.widget.TextView[@text="Спільні нотатки"]')
 
-        await delIcon.click()
-
-        // // await browser.pause(2000);
-
-        const delCartLink = await page.getElement('//android.widget.Button[@resource-id="android:id/button1"]')
-
-        await delCartLink.click()
-
-        // // await browser.pause(2000);
-
-        await page.isElementDisplayed('//android.widget.TextView[@text="Спільні нотатки"]')
-
+        await sharedNotes.isPageTitleDisplayed()
         await browser.pause(2000);
 
     })
 
-    xit('Check deleted notes', async () => {
+    it('Check deleted notes', async () => {
 
 
         const cartIcon = await page.getElement('~Кошик')

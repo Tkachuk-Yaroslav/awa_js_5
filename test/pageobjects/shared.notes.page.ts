@@ -1,10 +1,13 @@
 import { browser, expect } from '@wdio/globals'
 import Page from './page.js';
 import { page } from './page.js'
+const pageTitle = '//android.widget.TextView[@text="Спільні нотатки"]'
 
 const savedSharedName = '//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title"]'
 
-// await sharedNoteHeader.click()
+const noteForDeleteLink = '//android.widget.TextView[@resource-id="com.samsung.android.app.notes:id/title" and @text="‎My Shared Note"]'
+
+// await noteForDeleteLink.click()
 
 
 class SharedNote extends Page {
@@ -13,6 +16,14 @@ class SharedNote extends Page {
 
         const savedFolderNameText = (await elem.getAttribute('text')).replace(/\u200E/g, '').trim();
         expect(savedFolderNameText).toEqual(expectedValue);
+    }
+
+    public async clickNoteForDeleteLink(): Promise<void> {
+        await this.clickElement(noteForDeleteLink)
+    }
+
+    public async isPageTitleDisplayed(): Promise<void> {
+        await this.isElementDisplayed(pageTitle)
     }
 
     // public async clickMoveToTop(): Promise<void> {
